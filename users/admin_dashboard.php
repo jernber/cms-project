@@ -22,6 +22,10 @@
             <th>Status</th>
             <th>Email</th>
         </tr>
+        <?php foreach($) ?>
+        <td>
+            <td></td>
+        </td>
     </table>
 
 </body>
