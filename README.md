@@ -5,13 +5,23 @@ A content management website to help new players start playing
 ## Timeline...So far
 
 1. Build the backend
-..*    A. Create Users onto database
-..*    B. Password Security
-..*    C. Dashboard
+    - Create Users onto database
+    - Password Security
+    - Admin Dashboard
 2. Front End
-    A. ?????
-    B. I haven't thought this far ahead yet
+    - ?????
+    - I haven't thought this far ahead yet
 
+## Current Issues/Thoughts as of looking forward
+1. Backend
+    - How do I make the textbox all stars on input?
+    - How do I encrypt it in my database?
+    - What pieces of all of this need to come together before I can turn users into Approved or Admin?
+    - At what point do I build the admin dashboard?
+2. Git
+    - This is a test to see if this is making indented lists
+    - How often do you commit?
+    
 
 ## Contributing
 * John Bo - This is a solo project after all!
@@ -27,6 +37,6 @@ A content management website to help new players start playing
 
 ## Acknowledgments
 
-* Me for being such a cool dude with really boring ideas!!!
+* Me for being such a cool dude with really boring ideas!
 * You - because you're reading this!
-* *Nick Thiessen* - Helped with the database design!!!
+* *Nick Thiessen* - Helped with the database design!

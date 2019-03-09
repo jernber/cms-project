@@ -1,5 +1,4 @@
 <?php
-var_dump($_POST);
     if($_POST){
         
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -20,7 +19,7 @@ var_dump($_POST);
             $statement->execute();
             
             echo "success";
-            //header('location: ');
+            header('location: sucess.php');
             //header('location: index.php');
         }
         
