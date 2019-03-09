@@ -5,9 +5,9 @@ A content management website to help new players start playing
 ## Timeline...So far
 
 1. Build the backend
-..*    A. Create Users onto database
-..*    B. Password Security
-..*    C. Dashboard
+    A. Create Users onto database
+    B. Password Security
+    C. Dashboard
 2. Front End
     A. ?????
     B. I haven't thought this far ahead yet
