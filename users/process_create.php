@@ -22,8 +22,13 @@
             $statement->bindValue(":email", $email);
             $statement->execute();
             
-            $_SESSION['Username'] = $username;
-            $_SESSION['Email'] = $email;
+            session_start();
+            
+            if(!isset($_SESSION['Username'])){
+                $_SESSION['Username'] = $username;
+                $_SESSION['Email'] = $email;
+            }
+
             header('location: success.php');
             //header('location: index.php');
         }

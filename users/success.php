@@ -1,10 +1,14 @@
 <?php
-    var_dump($_SESSION);
-    create_session();
-    if($_SESSION){
+    session_start();
+    
+    if(isset($_SESSION['Username'])){
         $username = $_SESSION['Username'];
-        $email = $_SESSION['Email'];
+            if (isset($_SESSION['Email'])){
+                $email = $_SESSION['Email'];
+            }
     }
+
+
 ?>
 <!DOCTYPE html>
 <html>
