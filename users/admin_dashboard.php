@@ -1,8 +1,10 @@
 <?php
     require('connect.php');
-    $query = "SELECT * FROM cms_bodabuff";
+    $query = "SELECT * FROM cms_users";
     $statement = $db->prepare($query);
     $statement->execute();
+
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,10 +24,19 @@
             <th>Status</th>
             <th>Email</th>
         </tr>
-        <?php foreach($) ?>
+        
         <td>
-            <td></td>
+        <?php while($users = $statement->fetch()): ?>
+        
+        <td><?= $users['Username'] ?></td>
+        
+        <?php if($users['Member'] == 1 ): ?>
+        <td>Member</td>
+        <?php endif ?>
+        <td>
+
         </td>
+        <?php endwhile ?>
     </table>
 
 </body>

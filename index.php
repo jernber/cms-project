@@ -13,7 +13,7 @@
     <h1>John BoDa Buff</h1>
     <nav>
         <ul>
-            <li>Register</li>
+            <li><a href="users/register.php">Register</a></li>
             <li>Login</li>
         </ul>
     </nav>

@@ -24,7 +24,7 @@ A content management website to help new players start playing
     
 
 ## Contributing
-* John Bo - This is a solo project after all!
+* **John Bo** - This is a solo project after all!
 
 ## Versioning
 
@@ -39,4 +39,4 @@ A content management website to help new players start playing
 
 * Me for being such a cool dude with really boring ideas!
 * You - because you're reading this!
-* *Nick Thiessen* - Helped with the database design!
+* **Nick Thiessen** - Helped with the database design!
