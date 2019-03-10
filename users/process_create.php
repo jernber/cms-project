@@ -22,7 +22,9 @@
             $statement->bindValue(":email", $email);
             $statement->execute();
             
-            //header('location: sucess.php');
+            $_SESSION['Username'] = $username;
+            $_SESSION['Email'] = $email;
+            header('location: success.php');
             //header('location: index.php');
         }
         

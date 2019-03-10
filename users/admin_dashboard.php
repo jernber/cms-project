@@ -25,17 +25,17 @@
             <th>Email</th>
         </tr>
         
-        <td>
+        <tr>
         <?php while($users = $statement->fetch()): ?>
-        
         <td><?= $users['Username'] ?></td>
-        
-        <?php if($users['Member'] == 1 ): ?>
-        <td>Member</td>
-        <?php endif ?>
-        <td>
 
-        </td>
+        <?php if($users['Member'] == 1 ): ?>
+            <td>Member</td>
+        <?php endif ?>
+        
+        <td><?= $users['Email'] ?></td>
+        
+        </tr>
         <?php endwhile ?>
     </table>
 

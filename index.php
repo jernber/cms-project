@@ -17,7 +17,5 @@
             <li>Login</li>
         </ul>
     </nav>
-
-    
 </body>
 </html>

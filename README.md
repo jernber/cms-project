@@ -12,12 +12,14 @@ A content management website to help new players start playing
     - ?????
     - I haven't thought this far ahead yet
 
-## Current Issues/Thoughts as of looking forward
-1. Backend
+## Current Issues/Thoughts in Brain
+1. Users
     - How do I make the textbox all stars on input?
     - How do I encrypt it in my database?
     - What pieces of all of this need to come together before I can turn users into Approved or Admin?
     - At what point do I build the admin dashboard?
+    - Do I need to make my member status an enum? instead of having 3 different columns in the database?
+
 2. Git
     - This is a test to see if this is making indented lists
     - How often do you commit?
