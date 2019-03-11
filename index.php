@@ -17,5 +17,7 @@
             <li>Login</li>
         </ul>
     </nav>
+
+    <h3>The premiere location to find out top dota 2 builds</h3>
 </body>
 </html>

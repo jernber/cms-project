@@ -1,0 +1,24 @@
+{
+  "name": "cms-project",
+  "version": "1.0.0",
+  "description": "A content management website to help new players start playing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jernber/cms-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jernber/cms-project/issues"
+  },
+  "homepage": "https://github.com/jernber/cms-project#readme",
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}
