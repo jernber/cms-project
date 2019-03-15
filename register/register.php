@@ -12,10 +12,14 @@
     <form action="process_create.php" method="post">
 
         <label for="username">Username: </label>
-        <input type="text" id="name" name="username">
+        <input type="text" id="name" name="username" required>
 
         <label for="password">Password: </label>
-        <input type="text" id="password" name="password">
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password: </label>
+        <input type="confirmPassword" id="confirmPassword" name="confirmPassword" required>
+
 
         <label for="email">Email: </label>
         <input type="email" id="email" name="email">
