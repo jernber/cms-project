@@ -1,3 +1,9 @@
+<?php 
+    if($_POST['password'] == $_POST['confirmPassword']){
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    } 
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +23,7 @@
         <label for="password">Password: </label>
         <input type="password" id="password" name="password" required>
 
+        <!-- Form validation do not go to next page if this does not work-->
         <label for="confirmPassword">Confirm Password: </label>
         <input type="confirmPassword" id="confirmPassword" name="confirmPassword" required>
 

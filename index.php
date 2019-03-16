@@ -13,8 +13,8 @@
     <h1>John BoDa Buff</h1>
     <nav>
         <ul>
-            <li><a href="users/register.php">Register</a></li>
-            <li>Login</li>
+            <li><a href="register\register.php">Register</a></li>
+            <li><a href="login\login.html">Login</a></li>
         </ul>
     </nav>
 

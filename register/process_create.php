@@ -2,9 +2,13 @@
     if($_POST){
         
         //Filters input of the data submitted by the form
+
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $hashPass = password_hash($password, PASSWORD_DEFAULT);
+        
         $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        
 
         //Magic catch all if user creats out of bounds
         if((strlen($username) > 30) OR (strlen($password) > 12) OR (strlen($email) > 60)){
@@ -18,7 +22,7 @@
             $statement = $db->prepare($query);
 
             $statement->bindValue(":username", $username);
-            $statement->bindValue(":password", $password);
+            $statement->bindValue(":password", $hashPass);
             $statement->bindValue(":email", $email);
             $statement->execute();
             

@@ -14,11 +14,13 @@ A content management website to help new players start playing
 
 ## Current Issues/Thoughts in Brain
 1. Users
-    - How do I make the textbox all stars on input?
-    - How do I encrypt it in my database?
+    - ~How do I make the textbox all stars on input?~ Accomplished by using input="password"
+    - ~How do I encrypt it in my database?~ Solved by password_hash()
     - What pieces of all of this need to come together before I can turn users into Approved or Admin?
-    - At what point do I build the admin dashboard?
-    - Do I need to make my member status an enum? instead of having 3 different columns in the database?
+    - ~At what point do I build the admin dashboard?~ This was dumb, i can do it whenever i want.
+    - ~Do I need to make my member status an enum? instead of having 3 different columns in the database?~ Setting the member value to 1, Approved to 2, and Admin to 3 solves this
+    - Create login page
+    - 
 
 2. Git
     - This is a test to see if this is making indented lists
