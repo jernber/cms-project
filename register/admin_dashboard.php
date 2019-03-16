@@ -1,5 +1,5 @@
 <?php
-    require('connect.php');
+    require('requires\connect.php');
     $query = "SELECT * FROM cms_users";
     $statement = $db->prepare($query);
     $statement->execute();

@@ -17,7 +17,7 @@
         
         } else {
             ///Bind values to query and submit to database
-            require('connect.php');
+            require('requires\connect.php');
             $query = "INSERT INTO cms_users (username, password, email) VALUES (:username, :password, :email)";         
             $statement = $db->prepare($query);
 

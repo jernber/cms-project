@@ -22,6 +22,6 @@
     
 </head>
 <body>
-    <h1>Account created succesfully! Thanks <?= $username ?> check <?= $email ?> for confirmation email!</h1>
+    <h1>Account created successfully! Thanks <?= $username ?> check <?= $email ?> for confirmation email!</h1>
 </body>
 </html>

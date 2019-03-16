@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require('connect.php');
+    require('requires\connect.php');
 
     if (!isset($_POST['username']) && (!isset($_POST['password']))){
         die ('Username and Password are required.');
