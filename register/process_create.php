@@ -10,7 +10,7 @@
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         
 
-        //Magic catch all if user creats out of bounds
+        //Magic catch all if user creates out of bound
         if((strlen($username) > 30) OR (strlen($password) > 12) OR (strlen($email) > 60)){
             $error = "Error encountered while creating account.";
             echo $error;

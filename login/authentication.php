@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require('register\connect.php');
+    require('connect.php');
 
     if (!isset($_POST['username']) && (!isset($_POST['password']))){
         die ('Username and Password are required.');
@@ -28,7 +28,7 @@
             echo 'Incorrect username';
         }
     } else {
-        echo 'Incorrect username!'
+        echo 'Incorrect username!';
     }
     $stmt->close();
 ?>
