@@ -1,4 +1,6 @@
+<?php 
 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +19,6 @@
 
         <label for="password">Password: </label>
         <input type="password" id="password" name="password" required>
-
-        <!-- Form validation do not go to next page if this does not work-->
-        <label for="confirmPassword">Confirm Password: </label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
-
 
         <label for="email">Email: </label>
         <input type="email" id="email" name="email">
