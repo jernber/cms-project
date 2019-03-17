@@ -42,12 +42,12 @@
             $statement->bindValue(":email", $email);
             $statement->execute();
             
-            if(!isset($_SESSION['Username'])){
-                $_SESSION['Username'] = $username;
-                $_SESSION['Email'] = $email;
-            }
+          
+            $_SESSION['userCreate'] = $username;
+            $_SESSION['emailCreate'] = $email;
+            
 
-            header('location: success.php');
+            header('location: ..\index.php');
             //header('location: index.php');
         }
         

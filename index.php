@@ -9,6 +9,10 @@
 
         $username = $user['username'];
     }
+    if(isset($_SESSION['userCreate'])){
+        
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,6 +35,10 @@
             <?php endif ?>
         </ul>
     </nav>
+    <?php if(isset($_SESSION['userCreate'])): ?>
+        <h2>Account created successfully! Thanks <?= $_SESSION['userCreate']?>!</h2>
+        <?php session_destroy(); ?>
+    <?php endif ?>
 
     <?php if(isset($_SESSION['user_id']) || isset($_SESSION['logged_in'])): ?> 
         <h2>Hello, <?= $username ?> !</h2>
