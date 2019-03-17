@@ -2,10 +2,10 @@
     require_once('..\config.php');
     require(SITE_ROOT . '\requires\connect.php');              
     session_start();
-
+    var_dump($_POST);
     if($_POST){
         //Magic catch all if user creates out of bounds on username or password
-        if((strlen($_POST['username']) > 30) OR (strlen($_POST['password']) > 12) OR (strlen($_POST['email']) > 60)){
+        if((strlen($_POST['username']) > 30) OR (strlen($_POST['password']) > 12) OR (strlen($_POST['email']) > 60) OR ($_POST['password'] != $_POST['confirmPass'])){
             $error = "Error encountered while creating account.";
             echo $error;
         } else {
@@ -23,6 +23,16 @@
             if($row['num'] > 0){
                 die('That username already exists!');
             }
+            //Check for email collision
+            $sql = "SELECT COUNT(email) AS num from cms_users WHERE email = :email";
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':email', $email);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($row['num'] > 0){
+                die('That email already exists!');
+            }
+
             $hashPass = password_hash($password, PASSWORD_DEFAULT);
             $query = "INSERT INTO cms_users (username, password, email) VALUES (:username, :password, :email)";         
             $statement = $db->prepare($query);

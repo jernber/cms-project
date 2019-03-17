@@ -20,6 +20,9 @@
         <label for="password">Password: </label>
         <input type="password" id="password" name="password" required>
 
+        <label for="confirmPass">Confirm Password: </label>
+        <input type="password" id="confirmPass" name="confirmPass" required>
+
         <label for="email">Email: </label>
         <input type="email" id="email" name="email">
 
