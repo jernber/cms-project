@@ -2,33 +2,29 @@
     include('..\config.php');
     require(SITE_ROOT . '\requires\connect.php');
     session_start();
-    if (!isset($_POST['username']) && (!isset($_POST['password']))){
-        die ('Username and Password are required.');
-    }
-  
-    if($stmt = $db->prepare('SELECT id, password FROM cms_users WHERE username = ?')){
-        $stmt->bind_param('s', $_POST['username']);
+    
+    if($_POST){
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $passAttempt = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $sql = "SELECT id, username, password FROM cms_users WHERE username = :username";
+        $stmt = $db->prepare($sql);
+        
+        $stmt->bindValue(':username', $username);
         $stmt->execute();
-        $stmt->store_result();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($stmt->num_rows > 0){
-            $stmt->bind_results($id, $password);
-            $stmt->fetch();
-
-            if(password_verify($_POST['password'], $password)){
-                session_regenerate_id();
-                $_SESSION['loggedIn'] = true;
-                $_SESSION['name'] = $_POST['username'];
-                $_SESSION['id'] = $id;
-                echo 'Welcome' . $_SESSION['name'] . '!';
-            } else {
-                echo 'incorrect password!';
-            }
+        if($user === false){
+            die('Incorrect username / password combination!');
         } else {
-            echo 'Incorrect username';
+            $password = password_verify($passAttempt, $user['password']);
+            if($password){
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['logged_in'] = time();
+                echo "successful login!";
+            } else {
+                die('Incorrect username / password combination!');
+            }
         }
-    } else {
-        echo 'Incorrect username!';
     }
-    $stmt->close();
 ?>
