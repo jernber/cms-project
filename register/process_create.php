@@ -12,8 +12,11 @@
             //Filters input of the data submitted by the form
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            
+            $username = trim($username);
+            $email = trim($email);
+
             //Check for username collision
             $sql = "SELECT COUNT(username) AS num FROM cms_users WHERE username = :username";
             $stmt = $db->prepare($sql);
@@ -47,7 +50,7 @@
             $_SESSION['emailCreate'] = $email;
             
 
-            header('location: ..\index.php');
+            header('location: index.php');
             //header('location: index.php');
         }
         
