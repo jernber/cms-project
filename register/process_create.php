@@ -50,7 +50,7 @@
             $_SESSION['emailCreate'] = $email;
             
 
-            header('location: index.php');
+            header('location: ..\index.php');
             //header('location: index.php');
         }
         
