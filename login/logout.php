@@ -1,5 +1,5 @@
 <?php
     session_start();
     session_destroy(); 
-    echo 'you have been logged out.';
+    echo 'You have been logged out. Click <a href="../index.php">here</a> to go back to the home page';
 ?>

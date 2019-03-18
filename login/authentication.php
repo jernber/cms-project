@@ -17,15 +17,17 @@
 
 
         if($user == false){
-            die('Incorrect email / password combination! 1');
+            die('Incorrect email / password combination!');
         } else {
             $password = password_verify($passAttempt, $user['password']);
             if($password){
                 $_SESSION['user_id'] = $user['UserID'];
+                $_SESSION['Username'] = $user['Username'];
                 $_SESSION['logged_in'] = time();
-                header(SITE_ROOT . 'index.php');
+                $_SESSION['Email'] = $user['Email'];
+                header('Location: ..\index.php');
             } else {
-                die('Incorrect email / password combination! 2');
+                die('Incorrect email / password combination!');
             }
         }
     }

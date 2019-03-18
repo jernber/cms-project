@@ -1,4 +1,6 @@
 <?php
+    include('config.php');
+    require(SITE_ROOT . '\requires\connect.php');
     session_start();
     if(isset($_SESSION['user_id'])){
         $sql = "SELECT id, username FROM cms_users WHERE id = :id";
@@ -7,10 +9,7 @@
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $username = $user['username'];
-    }
-    if(isset($_SESSION['userCreate'])){
-        
+        $username = $user['Username'];
     }
 
 ?>
@@ -28,9 +27,10 @@
     <h1>John BoDa Buff</h1>
     <nav>
         <ul>
-            <li><a href="register\register.php">Register</a></li>
-            <li><a href="login\login.html">Login</a></li>
-            <?php if(isset($_SESSION['user_id'])): ?>
+            <?php if(!isset($_SESSION['user_id'])): ?>
+                <li><a href="register\register.php">Register</a></li>
+                <li><a href="login\login.html">Login</a></li>
+            <?php else: ?>
                 <li><a href="login\logout.php">Logout</a></li>
             <?php endif ?>
         </ul>
@@ -41,7 +41,7 @@
     <?php endif ?>
 
     <?php if(isset($_SESSION['user_id']) || isset($_SESSION['logged_in'])): ?> 
-        <h2>Hello, <?= $username ?> !</h2>
+        <h2>Hello, <?= $_SESSION['Username'] ?> !</h2>
     <?php endif ?> 
     
 
