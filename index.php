@@ -6,7 +6,7 @@
         $sql = "SELECT id, username FROM cms_users WHERE id = :id";
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $_SESSION['user_id']);
-        $stmt->execute();
+        $stmt->execute();   
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $username = $user['Username'];
