@@ -31,7 +31,7 @@
                 <li><a href="register\register.php">Register</a></li>
                 <li><a href="login\login.html">Login</a></li>
             <?php else: ?>
-                <li><a href="create\create.php">Create</a></li>
+                <li><a href="create\CreateHeroSelect.php">Create</a></li>
                 <li><a href="login\logout.php">Logout</a></li>
             <?php endif ?>
         </ul>
