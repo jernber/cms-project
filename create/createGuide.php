@@ -1,6 +1,7 @@
 <?php
     include('..\config.php');
     require(SITE_ROOT . '\requires\connect.php');
+    require_once(SITE_ROOT . '\composer\autoload.php');
     session_start();
 
     if($_POST){
