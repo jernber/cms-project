@@ -26,6 +26,10 @@
     <script src="main.js"></script>
 </head>
 <body>
-    
+    <form action="POST">
+        <label for="Name">
+            
+        </label>
+    </form>
 </body>
 </html>
