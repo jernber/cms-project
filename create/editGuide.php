@@ -20,7 +20,15 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="main.js"></script>
     <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=7gfzktuk0ibky5271icimizr2szmqozrwx8t3w9fvj3shac5"></script>
-    <script>tinymce.init({forced_root_block : "",selector:'textarea'});</script>
+    <script>tinymce.init({
+        selector: "textarea",
+        entity_encoding : "raw",
+        forced_root_block : "",
+        extended_valid_elements: "b/strong,i/em",
+        toolbar: "bold italic underline"
+        
+    });
+</script>
 </head>
 <body>
     <form action="processEdit.php?BuildID=<?= $BuildID ?>" method="POST">

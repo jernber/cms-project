@@ -8,6 +8,7 @@
     $statement = $db->prepare($query);
     $statement->execute();
     $data =  $statement->fetch();
+    $contentDecode = html_entity_decode($data['Content']);
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +29,6 @@
     <h2>A build for <?= $data['HeroName']?></h2>
     <h2><?= $data['Description'] ?></h2>
     <h3>Created by <?= $data['Username'] ?></h3>
-    <p><?= $data['Content'] ?></p>
+    <p><?= $contentDecode ?></p>
 </body>
 </html>
