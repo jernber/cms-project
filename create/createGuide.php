@@ -24,20 +24,18 @@
     <script>tinymce.init({
         selector: "textarea",
         forced_root_block : "",
-        entity_encoding : "raw",
-        extended_valid_elements: "b/strong,i/em",
-        toolbar: "bold italic underline"
     });
 </script>
 </head>
 <body>
-<nav>
-        <ul>
+    <nav>   
+        <ul>    
+                <li><a href="ViewGuides\View.php">View Guides</a></li>
             <?php if(!isset($_SESSION['user_id'])): ?>
                 <li><a href="register\register.php">Register</a></li>
-                <li><a href="login\login.html">Login</a></li>
+                <li><a href="..\login\login.html">Login</a></li>
             <?php else: ?>
-                <li><a href="create\create.php">Create</a></li>
+                <li><a href="create\CreateGuide.php">Create</a></li>
                 <li><a href="login\logout.php">Logout</a></li>
             <?php endif ?>
         </ul>
