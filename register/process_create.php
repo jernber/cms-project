@@ -2,7 +2,6 @@
     require_once('..\config.php');
     require(SITE_ROOT . '\requires\connect.php');              
     session_start();
-    var_dump($_POST);
     if($_POST){
         //Magic catch all if user creates out of bounds on username or password
         if((strlen($_POST['username']) > 30) OR (strlen($_POST['password']) > 12) OR (strlen($_POST['email']) > 60) OR ($_POST['password'] != $_POST['confirmPass'])){
