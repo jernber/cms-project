@@ -26,7 +26,8 @@
 <body>
     <h1>John BoDa Buff</h1>
     <nav>
-        <ul>
+        <ul>    
+                <li><a href="ViewGuides\View.php">View Guides</a></li>
             <?php if(!isset($_SESSION['user_id'])): ?>
                 <li><a href="register\register.php">Register</a></li>
                 <li><a href="login\login.html">Login</a></li>

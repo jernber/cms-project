@@ -8,6 +8,8 @@
     $statement = $db->prepare($query);
     $statement->execute();
     $builds = $statement->fetchAll();
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +42,7 @@
         <?php foreach($builds as $build): ?>
         <tr>
             <td><?= $build['HeroName'] ?></td>
-            <td><?= $build['Title'] ?></td>
+            <td><a href="viewGuide.php?BuildID=<?= $build['BuildID'] ?>"><?= $build['Title'] ?></a></td>
             <td><?= $build['Username'] ?> </td>
         </tr>
         <?php endforeach ?>
