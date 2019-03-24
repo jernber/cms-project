@@ -23,7 +23,7 @@
     <script>tinymce.init({forced_root_block : "",selector:'textarea'});</script>
 </head>
 <body>
-    <form action="processEdit.php" method="POST">
+    <form action="processEdit.php?BuildID=<?= $BuildID ?>" method="POST">
     <label for="title">Guide Name</label>
     <input type="text" name="title" id="title" value="<?= $build['Title'] ?>">
     <label for="description"><br>Description</label>
