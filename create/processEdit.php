@@ -4,7 +4,8 @@
     require_once(SITE_ROOT . '\composer\vendor\autoload.php');
     session_start();
     var_dump($_POST);
-    if($_POST){
+    
+    if(isset($_POST['submit'])){
         $BuildID = filter_input(INPUT_GET, 'BuildID', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $Title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $Content = filter_input(INPUT_POST, 'details', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -25,6 +26,14 @@
             $statement->execute();
             header('location: ..\ViewGuides\view.php');
         }
+    } 
+    if (isset($_POST['delete'])){
+        $BuildID = filter_input(INPUT_GET, 'BuildID', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $query = "DELETE FROM cms_builds WHERE BuildID = :BuildID";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':BuildID', $BuildID, PDO::PARAM_INT);
+        $statement->execute();
+        header('location: ..\ViewGuides\view.php');
     }
 ?>
 <!DOCTYPE html>

@@ -4,7 +4,7 @@
     require_once(SITE_ROOT . '\composer\vendor\autoload.php');
     session_start();
 
-    $query =  "SELECT BuildID, HeroName, Title, Description, Username FROM cms_builds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY BuildID DESC";
+    $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username FROM cms_builds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY BuildID DESC";
     $statement = $db->prepare($query);
     $statement->execute();
     $builds = $statement->fetchAll();
@@ -30,20 +30,22 @@
                 <li><a href="..\register\register.php">Register</a></li>
                 <li><a href="..\login\login.html">Login</a></li>
             <?php else: ?>
-                <li><a href="create\CreateGuide.php">Create</a></li>
-                <li><a href="login\logout.php">Logout</a></li>
+                <li><a href="..\create\CreateGuide.php">Create</a></li>
+                <li><a href="..\login\logout.php">Logout</a></li>
             <?php endif ?>
         </ul>
     </nav>
     <h1>Guide Viewer</h1> 
     <table>
         <tr>
+            <th></th>
             <th>Hero</th>
             <th>Title</th>
             <th>User</th>
         </tr>
         <?php foreach($builds as $build): ?>
         <tr>
+            <td><img src="..\<?= $build['SmallHeroImage'] ?>" alt="<?= $build['HeroName'] ?>"></td>
             <td><?= $build['HeroName'] ?></td>
             <td><a href="viewGuide.php?BuildID=<?= $build['BuildID'] ?>"><?= $build['Title'] ?></a></td>
             <td><?= $build['Username'] ?> </td>

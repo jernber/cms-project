@@ -35,7 +35,8 @@
     <input type="text" name="description" id="description" value="<?= $build['Description']?>">
     <label for="details"><br>Details</label>
     <textarea name="details" id="details" cols="10" rows="10"><?= $build['Content']?></textarea>
-    <button type="submit">Submit</button>
+    <button type="submit" name="submit" value='submit'>Submit</button>
+    <button type="submit" name="delete" value='delete'>Delete</button>
 </form>
 </body>
 </html>
