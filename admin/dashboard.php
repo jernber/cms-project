@@ -5,10 +5,14 @@
     session_start();
 
     $query = "SELECT Username, Email, Member FROM cms_users";
-    $statement= $db->prepare($query);
+    $statement = $db->prepare($query);
     $statement->execute();
     $users = $statement->fetchAll();
-    var_dump($users);
+
+    $query = "SELECT BuildID, Title, Username FROM cms_builds b JOIN cms_users u ON b.UserID = u.UserID ORDER BY BuildID DESC";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $builds = $statement->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -34,6 +38,7 @@
             <?php endif ?>
         </ul>
     </nav>
+    <h1>Admin Dashboard</h1>
     <table>
         <tr>
             <th>Username</th>
@@ -53,6 +58,20 @@
             <?php endif ?>
             </tr>
     <?php endforeach ?>
+    </table>
+
+    <h1>Builds</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Username</th>
+        </tr>
+        <?php foreach($builds as $build): ?>
+        <tr>
+            <td><a href="..\ViewGuides\viewGuide.php?BuildID=<?= $build['BuildID']?>"><?= $build['Title'] ?></a></td>
+            <td><?= $build['Username'] ?></td>
+        </tr>
+        <?php endforeach ?>
     </table>
 </body>
 </html>

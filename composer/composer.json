@@ -1,6 +1,7 @@
 {
     "require": {
         "tinymce/tinymce": "^5.0",
-        "google/recaptcha": "^1.2"
+        "google/recaptcha": "^1.2",
+        "twitter/bootstrap": "^4.3"
     }
 }
