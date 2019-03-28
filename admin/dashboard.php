@@ -31,24 +31,29 @@
 </head>
 <body>
     <div class="container">
-        <nav>   
-            <ul>    
-                    <li><a href="ViewGuides\View.php">View Guides</a></li>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <a href="..\index.php" class="navbar-brand">Boda Buff</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav ml_auto">   
+                    <li class="nav-item"><a class="nav-link" href="..\index.php">Guides</a></li>
+                    <li class="nav-item"><a class="nav-link" href="..\ViewGuides\heroes.php">Heroes</a></li>
                 <?php if(!isset($_SESSION['user_id'])): ?>
-                    <li><a href="register\register.php">Register</a></li>
-                    <li><a href="..\login\login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="..\register\register.php">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="..\login\login.html">Login</a></li>
                 <?php else: ?>
-                    <li><a href="create\CreateGuide.php">Create</a></li>
-                    <li><a href="login\logout.php">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="..\create\CreateGuide.php">Create</a></li>
+                    <li class="nav-item"><a class="nav-link" href="..\login\logout.php">Logout</a></li>
                 <?php endif ?>
             </ul>
+            </div>
         </nav>
         <h1>Admin Dashboard</h1>
-        <table>
+        <table class="table">
             <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Member Status</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Member Status</th>
             </tr>
         <?php foreach($users as $user): ?>
                 <tr>
@@ -66,13 +71,15 @@
         </table>
 
         <h1>Builds</h1>
-        <table>
+        <table class="table">
             <tr>
-                <th>Title</th>
-                <th>Username</th>
+                <th scope="col">Hero</th>
+                <th scope="col">Title</th>
+                <th scope="col">Username</th>
             </tr>
             <?php foreach($builds as $build): ?>
             <tr>
+                <td>hero name</td>
                 <td><a href="..\ViewGuides\viewGuide.php?BuildID=<?= $build['BuildID']?>"><?= $build['Title'] ?></a></td>
                 <td><?= $build['Username'] ?></td>
             </tr>
