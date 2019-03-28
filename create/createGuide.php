@@ -32,35 +32,49 @@
 </script>
 </head>
 <body>
-    <nav>   
-        <ul>    
-                <li><a href="ViewGuides\View.php">View Guides</a></li>
-            <?php if(!isset($_SESSION['user_id'])): ?>
-                <li><a href="register\register.php">Register</a></li>
-                <li><a href="..\login\login.html">Login</a></li>
-            <?php else: ?>
-                <li><a href="create\CreateGuide.php">Create</a></li>
-                <li><a href="login\logout.php">Logout</a></li>
-            <?php endif ?>
-        </ul>
-    </nav>
-    <form action="processPost.php" method="POST">
-         <label for="heroes">Heroes</label>
-            <select name="heroes" id="heroes">
-                <?php foreach($heroes as $hero): ?>
-                    <option value="<?= $hero['HeroID'] ?>">
-                        <?= $hero['HeroName']?>
-                    </option>
-                <?php endforeach ?>
-            </select>
-        <label for="title">Guide Name</label>
-        <input type="text" name="title" id="title">
-        <label for="description"><br>Description</label>
-        <p>Provide a quick description of your guide 280 characters max!</p>
-        <input type="text" name="description" id="description">
-        <label for="details"><br>Details</label>
-        <textarea name="details" id="details" cols="10" rows="10"></textarea>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container">
+
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <a href="#" class="navbar-brand">Boda Buff</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav ml_auto">   
+                    <li class="nav-item"><a class="nav-link" href="..\index.php">View Guides</a></li>
+                <?php if(!isset($_SESSION['user_id'])): ?>
+                    <li class="nav-item"><a class="nav-link" href="..\register\register.php">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="..\login\login.html">Login</a></li>
+                <?php else: ?>
+                    <li class="nav-item"><a class="nav-link" href="..\create\CreateGuide.php">Create</a></li>
+                    <li class="nav-item"><a class="nav-link" href="..\login\logout.php">Logout</a></li>
+                <?php endif ?>
+            </ul>
+            </div>
+        </nav>
+
+        <div class="row">
+            <div class="col">
+                <form action="processPost.php" method="POST" >
+                    <label for="title">Guide Name</label>
+                        <input type="text" name="title" id="title" class="form-control">
+                    <label for="heroes">Hero</label>
+                            <select name="heroes" id="heroes" class="form-control">
+                                <?php foreach($heroes as $hero): ?>
+                                    <option value="<?= $hero['HeroID'] ?>">
+                                        <?= $hero['HeroName']?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" name="description" id="description" class="form-control">
+                        <small>Provide a quick description of your guide 280 characters max!</small>
+                    </div>
+                    <label for="details"><br>Details</label>
+                    <textarea name="details" id="details" cols="10" rows="10"></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

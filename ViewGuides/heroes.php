@@ -3,20 +3,20 @@
     require(SITE_ROOT . '\requires\connect.php');
     require_once(SITE_ROOT . '\composer\vendor\autoload.php');
     session_start();
-    $BuildID = filter_input(INPUT_GET, 'BuildID', FILTER_SANITIZE_NUMBER_INT);
-    $query =  "SELECT BuildID, HeroName, Title, Description, Username, Content FROM cms_builds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID WHERE BuildID = ($BuildID)";
+    
+    
+    $query = "SELECT HeroID, HeroName, SmallHeroImage FROM cms_heroes";
     $statement = $db->prepare($query);
     $statement->execute();
-    $data =  $statement->fetch();
-    $contentDecode = html_entity_decode($data['Content']);
+    $heroes =  $statement->fetchAll();
+    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?= $data['Title'] ?></title>
+    <title>Hero Select</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -27,7 +27,7 @@
 </head>
 <body>
     <div class="container">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <a href="#" class="navbar-brand">Boda Buff</a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarMenu">
@@ -45,19 +45,14 @@
         </nav>
 
         <div class="row">
-            <div class="col">
-                <?php if (isset($_SESSION['Username'])): ?>
-                    <?php if($_SESSION['Username'] == $data['Username']): ?>
-                        <h3><a href="..\create\editGuide.php?BuildID=<?=$data['BuildID'] ?>">Edit</a></h3>
-                    <?php endif ?>
-                <?php endif ?>
-                <h1><?= $data['Title'] ?></h1>
-                <h2>A build for <?= $data['HeroName']?></h2>
-                <h2><?= $data['Description'] ?></h2>
-                <h3>Created by <?= $data['Username'] ?></h3>
-                <p><?= $contentDecode ?></p>
+        <?php foreach ($heroes as $hero): ?>
+            <div class="col">   
+                    <img src="..\<?= $hero['SmallHeroImage'] ?>" alt="<?= $hero['HeroName'] ?>">
+                    <p><a href="heroView.php?HeroID=<?= $hero['HeroID']?>"><?= $hero['HeroName'] ?> </a></p>
             </div>
+        <?php endforeach ?>
         </div>
     </div>
 </body>
 </html>
+

@@ -28,7 +28,7 @@
             $statement->bindValue(":Content", $Content);
         
             $statement->execute();
-            header('location:..\ViewGuides\View.php');
+            header('location:..\index.php');
         }
     }
 ?>
