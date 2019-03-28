@@ -12,10 +12,11 @@
         $username = $user['Username'];
     }
 
-    $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username FROM cms_builds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY BuildID DESC";
+    $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID FROM cms_builds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY BuildID DESC";
     $statement = $db->prepare($query);
     $statement->execute();
     $builds = $statement->fetchAll();
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +39,8 @@
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ml_auto">   
-                    <li class="nav-item"><a class="nav-link" href="index.php">View Guides</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php">Guides</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ViewGuides\heroes.php">Heroes</a></li>
                 <?php if(!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item"><a class="nav-link" href="register\register.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="login\login.html">Login</a></li>
@@ -76,12 +78,12 @@
                 <?php foreach($builds as $build): ?>
                 <tr>
                     <td><img src="<?= $build['SmallHeroImage'] ?>" alt="<?= $build['HeroName'] ?>"></td>
-                    <td><?= $build['HeroName'] ?></td>
+                    <td><a href="heroes\hero.php?HeroID=<?= $build['HeroID'] ?>"><?= $build['HeroName'] ?></a></td>
                     <td><a href="viewGuides/viewGuide.php?BuildID=<?= $build['BuildID'] ?>"><?= $build['Title'] ?></a></td>
                     <td><?= $build['Username'] ?> </td>
                 </tr>
                 <?php endforeach ?>
-        </table>
+        </table>    
     </div>
 </body>
 </html>
