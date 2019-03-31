@@ -3,7 +3,7 @@
     require(SITE_ROOT . '\requires\connect.php');
     require_once(SITE_ROOT . '\composer\vendor\autoload.php');
     session_start();
-    $query = "SELECT HeroID, HeroName FROM cms_userheroes ORDER BY HeroID";
+    $query = "SELECT HeroID, HeroName FROM cms_heroes ORDER BY HeroID";
     $statement = $db->prepare($query);
     $statement->execute();
     $heroes = $statement->fetchAll();
