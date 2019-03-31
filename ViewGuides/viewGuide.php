@@ -10,11 +10,10 @@
     $data =  $statement->fetch();
     $contentDecode = html_entity_decode($data['Content']);
     
-    $commentQuery = "SELECT Comment FROM cms_comments WHERE BuildID = ($BuildID) ORDER BY DESC";
+    $commentQuery = "SELECT Comment FROM cms_comments WHERE BuildID = ($BuildID) ORDER BY Comment DESC";
     $stmt = $db->prepare($commentQuery);
     $stmt->execute();
     $comments = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-    
 
 ?>
 
