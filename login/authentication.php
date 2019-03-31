@@ -9,7 +9,7 @@
         $email = trim($_POST['email']);
         $passAttempt = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        $sql = "SELECT UserID, Username, password, email FROM cms_users WHERE email = :email";
+        $sql = "SELECT UserID, Username, password, email, Member FROM cms_users WHERE email = :email";
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':email', $email);
         $stmt->execute();
@@ -25,6 +25,7 @@
                 $_SESSION['Username'] = $user['Username'];
                 $_SESSION['logged_in'] = time();
                 $_SESSION['Email'] = $user['Email'];
+                $_SESSION['Member'] = $user['Member'];
                 header('Location: ..\index.php');
             } else {
                 die('Incorrect email / password combination!');

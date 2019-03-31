@@ -10,11 +10,11 @@
     $data =  $statement->fetch();
     $contentDecode = html_entity_decode($data['Content']);
     
-    $commentQuery = "SELECT Comment FROM cms_comments WHERE BuildID = ($BuildID) ORDER BY Comment DESC";
+    $commentQuery = "SELECT Comment, CommentID FROM cms_comments WHERE BuildID = ($BuildID) ORDER BY Comment DESC";
     $stmt = $db->prepare($commentQuery);
     $stmt->execute();
-    $comments = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-
+    $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    var_dump($comments);
 ?>
 
 <html lang="en">
@@ -70,9 +70,10 @@
                 <h3>Comments</h3>
 
                 <?php if(count($comments) > 0): ?>
-                    <?php foreach($comments as $comment): ?>
-                        <p><?= html_entity_decode($comment) ?></p>
-                    <?php endforeach ?>
+                    <?php for($i=0; $i<sizeof($comments); $i++): ?>
+                        <p><?php echo $comments[$i]['Comment'] ?></p>
+                        <h5><a href="deleteComment.php?CommentID=<?=$comments[$i]['CommentID'] ?>">Delete</a></h5>
+                    <?php endfor ?>
                 <?php endif ?>
 
                 <?php if($_SESSION['user_id']): ?>

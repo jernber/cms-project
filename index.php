@@ -2,6 +2,7 @@
     include('config.php');
     require(SITE_ROOT . '\requires\connect.php');
     session_start();
+    var_dump($_SESSION);
     if(isset($_SESSION['user_id'])){
         $sql = "SELECT id, username FROM cms_users WHERE id = :id";
         $stmt = $db->prepare($sql);
