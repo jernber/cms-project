@@ -9,9 +9,16 @@
     $statement->execute();
     $data =  $statement->fetch();
     $contentDecode = html_entity_decode($data['Content']);
+    
+    $commentQuery = "SELECT comments FROM cms_userbuilds WHERE BuildID = ($BuildID)";
+    $stmt = $db->prepare($commentQuery);
+    $stmt->execute();
+    $comments = $statement->fetchAll();
+    if (count($comments) > 0){
+         $commentDecode = html_entity_decode($comments);
+    }
 ?>
-
-<!DOCTYPE html>
+>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -24,6 +31,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="main.js"></script>
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=7gfzktuk0ibky5271icimizr2szmqozrwx8t3w9fvj3shac5"></script>
+    <script>tinymce.init({
+        selector: "textarea",
+        forced_root_block : "",
+    });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -56,6 +69,25 @@
                 <h2><?= $data['Description'] ?></h2>
                 <h3>Created by <?= $data['Username'] ?></h3>
                 <p><?= $contentDecode ?></p>
+
+                <?php if(isset($_SESSION['user_id'])): ?>
+                    <p><a href="..\create\comment.php">Write a comment</a></h3>
+                <?php endif ?>
+
+                <h3>Comments</h3>
+                <?php if(count($comments) > 0): ?>
+                    <?php foreach($data['Comments'] as $comments): ?>
+                        <p><?= $comments ?></p>
+                    <?php endforeach ?>
+                <?php endif ?>
+
+                <?php if($_SESSION['user_id']): ?>
+                    <form action="..\create\processComment.php?BuildID=<?= $BuildID ?>" method="post">
+                        <h2>Write a comment</h2>
+                    <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                    <button type="submit">Submit Comment</button>
+                <?php endif ?>
+                    </form>
             </div>
         </div>
     </div>

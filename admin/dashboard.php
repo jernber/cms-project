@@ -9,7 +9,7 @@
     $statement->execute();
     $users = $statement->fetchAll();
 
-    $query = "SELECT BuildID, Title, Username FROM cms_builds b JOIN cms_users u ON b.UserID = u.UserID ORDER BY BuildID DESC";
+    $query = "SELECT BuildID, Title, Username FROM cms_userbuilds b JOIN cms_users u ON b.UserID = u.UserID ORDER BY BuildID DESC";
     $statement = $db->prepare($query);
     $statement->execute();
     $builds = $statement->fetchAll();

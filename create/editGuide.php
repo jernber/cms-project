@@ -5,7 +5,7 @@
     require_once(SITE_ROOT . '\composer\vendor\autoload.php');
     session_start();
     $BuildID = filter_input(INPUT_GET, 'BuildID', FILTER_SANITIZE_NUMBER_INT);
-    $query = "SELECT * FROM cms_builds WHERE BuildID = ($BuildID)";
+    $query = "SELECT * FROM cms_userbuilds WHERE BuildID = ($BuildID)";
     $statement = $db->prepare($query);
     $statement->execute();
     $build = $statement->fetch();

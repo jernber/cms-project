@@ -18,7 +18,7 @@
             echo "error processing post!";
         } else {
 
-            $query = "INSERT INTO cms_builds (HeroID, UserID, Title, Description, Content) VALUES (:HeroID, :UserID, :Title, :Description, :Content)";         
+            $query = "INSERT INTO cms_userbuilds (HeroID, UserID, Title, Description, Content) VALUES (:HeroID, :UserID, :Title, :Description, :Content)";         
             $statement = $db->prepare($query);
 
             $statement->bindValue(":HeroID", $HeroID);

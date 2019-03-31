@@ -17,7 +17,7 @@
         if(strlen($Title) < 0 OR (strlen($Description) < 0 OR strlen($Description > 280)) OR strlen($Content) < 0){
             echo "error processing post!";
         } else {
-            $query = "UPDATE cms_builds SET Title = :Title, Content = :Content, Description = :Description WHERE BuildID = :BuildID";
+            $query = "UPDATE cms_userbuilds SET Title = :Title, Content = :Content, Description = :Description WHERE BuildID = :BuildID";
             $statement = $db->prepare($query);
             $statement->bindValue(":Title", $Title);
             $statement->bindValue(":Content", $Content);
@@ -29,7 +29,7 @@
     } 
     if (isset($_POST['delete'])){
         $BuildID = filter_input(INPUT_GET, 'BuildID', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $query = "DELETE FROM cms_builds WHERE BuildID = :BuildID";
+        $query = "DELETE FROM cms_userbuilds WHERE BuildID = :BuildID";
         $statement = $db->prepare($query);
         $statement->bindValue(':BuildID', $BuildID, PDO::PARAM_INT);
         $statement->execute();
