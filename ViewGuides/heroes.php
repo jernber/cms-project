@@ -36,7 +36,7 @@
                     <li class="nav-item"><a class="nav-link" href="heroes.php">View Heroes</a></li>
                 <?php if(!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item"><a class="nav-link" href="..\register\register.php">Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="..\login\login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="..\login\login.php">Login</a></li>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="..\create\CreateGuide.php">Create</a></li>
                     <li class="nav-item"><a class="nav-link" href="..\login\logout.php">Logout</a></li>
