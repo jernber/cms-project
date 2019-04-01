@@ -2,6 +2,9 @@
 
 A content management website to help new players start playing
 
+
+58 currently
++ 5 composer - TinyMCE + BootStrap
 ## Timeline...So far
 
 1. Build the backend

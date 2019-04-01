@@ -16,21 +16,23 @@
     <script src="main.js"></script>
 </head>
 <body>
+    <div class="container">
     <form action="process_create.php" method="post">
 
         <label for="username">Username: </label>
-        <input type="text" id="name" name="username" required>
+        <input type="text" id="name" name="username" class="form-control" required>
 
         <label for="password">Password: </label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" class="form-control" required>
 
         <label for="confirmPass">Confirm Password: </label>
-        <input type="password" id="confirmPass" name="confirmPass" required>
+        <input type="password" id="confirmPass" name="confirmPass" class="form-control" required>
 
         <label for="email">Email: </label>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" name="email" class="form-control">
 
         <button type="submit">Submit</button>
     </form>
+    </div>
 </body>
 </html>

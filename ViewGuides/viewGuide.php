@@ -71,15 +71,18 @@
                 <?php if(count($comments) > 0): ?>
                     <?php for($i=0; $i<sizeof($comments); $i++): ?>
                         <p><?php echo $comments[$i]['Comment'] ?></p>
+                        <?php if(($_SESSION['Member']) == 1): ?>
                         <h5><a href="deleteComment.php?CommentID=<?=$comments[$i]['CommentID'] ?>">Delete</a></h5>
+                        <?php endif ?>
                     <?php endfor ?>
                 <?php endif ?>
 
-                <?php if($_SESSION['user_id']): ?>
+                <?php if(isset($_SESSION['user_id'])): ?>
                     <form action="..\create\processComment.php?BuildID=<?= $BuildID ?>" method="post">
                         <h2>Write a comment</h2>
                     <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
                     <button type="submit">Submit Comment</button>
+                <?php else: ?>
                 <?php endif ?>
                     </form>
             </div>

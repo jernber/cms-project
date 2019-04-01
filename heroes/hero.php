@@ -17,7 +17,13 @@
     $statement->bindValue("HeroID", $HeroID);
     $statement->execute();
     $spells = $statement->fetchAll();
-    
+
+    $buildQuery =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID WHERE HeroID = :HeroID ORDER BY BuildID DESC";
+    $buildStatement = $db->prepare($buildQuery);
+    $buildStatement->bindValue("HeroID", $HeroID);
+    $buildStatement->execute();
+    $buildStuff = $buildStatement->fetchAll();
+    var_dump($buildStuff);
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,6 +72,25 @@
                     <?php endforeach ?>
             </div>
         </div>
+
+        <?php if(count($buildStuff) > 0): ?>
+        <table class="table">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Hero</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">User</th>
+                </tr>
+                <?php foreach($buildStuff as $build): ?>
+                <tr>
+                    <td><img src="<?= $build['SmallHeroImage'] ?>" alt="<?= $build['HeroName'] ?>"></td>
+                    <td><a href="heroes\hero.php?HeroID=<?= $build['HeroID'] ?>"><?= $build['HeroName'] ?></a></td>
+                    <td><a href="viewGuides/viewGuide.php?BuildID=<?= $build['BuildID'] ?>"><?= $build['Title'] ?></a></td>
+                    <td><?= $build['Username'] ?> </td>
+                </tr>
+                <?php endforeach ?>
+        </table>    
+    <?php endif ?>
     </div>
 </body>
 </html>
