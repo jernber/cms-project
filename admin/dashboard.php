@@ -27,11 +27,13 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="main.js"></script>
-    <!-- <script src="userdata.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="userdata.js"></script>
+    <!-- <script src="main.js"></script> -->
 </head>
 <body>
     <div class="container">
+
     <div class="modal fade" id="userModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -43,14 +45,17 @@
 
                 <div class="modal-body">
                     <form action="updateUser.php" method="POST" id="edit_form">
+                    <label for="UserID">UserID</label>
+                    <input type="text" name="UserID" id="modalUserID" class="form-control" readonly>
+                    
                     <label for="Username">Username</label>
-                    <input type="text" name="Username" id="Username"  class="form-control">
+                    <input type="text" name="Username" id="modalUsername"  class="form-control">
 
                     <label for="Email">Email</label>
-                    <input type="email" name="Email" id="Email"  class="form-control">
+                    <input type="email" name="Email" id="modalEmail"  class="form-control">
 
                     <label for="Member">Member Type</label>
-                    <select name="Member" id="Member" class="form-control">
+                    <select name="Member" id="modalMember" class="form-control">
                         <option value="1">Admin</option>
                         <option value="2">Approved</option>
                         <option value="3">Member</option>
@@ -59,7 +64,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Confirm</button>
+                    <button type="submit" id='modalSubmit' class="btn btn-secondary" data-dismiss="modal">Confirm</button>
                 </div>
             </div>
         </div>
@@ -92,18 +97,21 @@
                     <th></th>
                 </tr>
             <?php foreach($users as $user): ?>
-                    <tr>
-                        <td><?= $user['Username'] ?></td>
-                        <td><?= $user['UserID'] ?></td>
-                        <td><?= $user['Email'] ?></td>
+                    <tr id='tr_<?= $user['UserID'] ?>'>
+                        <td id="username_<?= $user['UserID'] ?>"><?= $user['Username'] ?></td>
+                        <td id="userid_<?= $user['UserID'] ?>"><?= $user['UserID'] ?></td>
+                        <td id="email_<?= $user['UserID'] ?>"><?= $user['Email'] ?></td>
                     <?php if($user['Member'] == 1): ?>
-                        <td>Admin</td>
+                        <td id="member_<?= $user['UserID'] ?>">Admin</td>
                     <?php elseif ($user['Member'] == 2): ?>
-                        <td>Approved</td>
+                        <td id="member_<?= $user['UserID'] ?>">Approved</td>
                     <?php else: ?>
-                        <td>Member</td>
+                        <td id="member_<?= $user['UserID'] ?>">Member</td>
                     <?php endif ?>
-                    <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal" value=<?= $user['UserID'] ?>>Edit User</button></td>
+                    
+                    <td><a href="#userModal" class="edit_link" id="edit_<?= $user['UserID'] ?>" data-toggle="modal" data-target="#userModal" data-id="<?= $user['UserID'] ?>">edit</a></td>
+                    
+                    <!-- <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal" data-id="<?= $user['UserID'] ?>">Edit User</button></td> -->
                     </tr>
             <?php endforeach ?>
             </table>
@@ -124,6 +132,6 @@
             <?php endforeach ?>
         </table>
     </div>
-</body>
+</body>     
 </html>
 

@@ -11,13 +11,11 @@
 
     if(!empty($_POST)){
         $UserID = filter_input(INPUT_POST, 'UserID', FILTER_VALIDATE_INT);
-        $Username = filter_input(INPUT_POST, 'Username', FILTER_SANITIZE_STRING);
-        $Email = filter_input(INPUT_POST, 'Email', FILTER_SANITIZE_EMAIL);
-        $Member = $_POST['Member'];
-
-        $query = "SELECT Username, Email, Member FROM cms_users WHERE UserID = :UserID"
+        $query = "SELECT Username, Email, Member, UserID FROM cms_users WHERE UserID = :UserID";
         $statement = $db->prepare($query);
         $statement->bindValue('UserID', $UserID);
+        $statement->execute();
+        $userData = $statement->fetch(PDO::FETCH_ASSOC);
 
     }
     // if(filter_input(INPUT_POST, 'productid', FILTER_VALIDATE_INT)){
