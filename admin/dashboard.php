@@ -1,18 +1,24 @@
 <?php 
+
     include('..\config.php');
     require(SITE_ROOT . '\requires\connect.php');
     require_once(SITE_ROOT . '\composer\vendor\autoload.php');
     session_start();
+    
+    if($_SESSION['Member'] == 1){
+        $query = "SELECT UserID, Username, Email, Member FROM cms_users";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $users = $statement->fetchAll();
+    
+        $query = "SELECT BuildID, Title, Username FROM cms_userbuilds b JOIN cms_users u ON b.UserID = u.UserID ORDER BY BuildID DESC";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $builds = $statement->fetchAll();
+    } else {
+        echo '<p>Oops! A mistake has happened</p>';
+    }
 
-    $query = "SELECT UserID, Username, Email, Member FROM cms_users";
-    $statement = $db->prepare($query);
-    $statement->execute();
-    $users = $statement->fetchAll();
-
-    $query = "SELECT BuildID, Title, Username FROM cms_userbuilds b JOIN cms_users u ON b.UserID = u.UserID ORDER BY BuildID DESC";
-    $statement = $db->prepare($query);
-    $statement->execute();
-    $builds = $statement->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -42,9 +48,9 @@
                     <h2 class="modal-title">Edit User</h2>
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
-
+                
                 <div class="modal-body">
-                    <form action="updateUser.php" method="POST" id="edit_form">
+                <form action="updateUser.php" method="POST" id="edit_form">
                     <label for="UserID">UserID</label>
                     <input type="text" name="UserID" id="modalUserID" class="form-control" readonly>
                     
@@ -60,11 +66,12 @@
                         <option value="2">Approved</option>
                         <option value="3">Member</option>
                     </select>
-                    </form>
+                    <button type="submit" id='modalSubmit' class="btn btn-primary" data-dismiss="modal">Update User</button>
+                </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" id='modalSubmit' class="btn btn-secondary" data-dismiss="modal">Confirm</button>
+                <button form="" type="submit" id='modalSubmit' class="btn btn-primary" data-dismiss="modal">Update User</button>
                 </div>
             </div>
         </div>
@@ -79,6 +86,8 @@
                 <?php if(!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item"><a class="nav-link" href="..\register\register.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="..\login\login.php">Login</a></li>
+                <?php elseif($_SESSION['Member'] == 1): ?>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.php">Admin Dashboard</a></li>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="..\create\CreateGuide.php">Create</a></li>
                     <li class="nav-item"><a class="nav-link" href="..\login\logout.php">Logout</a></li>

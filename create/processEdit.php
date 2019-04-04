@@ -10,12 +10,8 @@
         $Title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $Content = filter_input(INPUT_POST, 'details', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $Description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        var_dump($BuildID);
-        var_dump($Title);
-        var_dump($Content);
-        var_dump($Description);
         if(strlen($Title) < 0 OR (strlen($Description) < 0 OR strlen($Description > 280)) OR strlen($Content) < 0){
-            echo "error processing post!";
+            echo "<p>error processing post!</p>";
         } else {
             $query = "UPDATE cms_userbuilds SET Title = :Title, Content = :Content, Description = :Description WHERE BuildID = :BuildID";
             $statement = $db->prepare($query);
