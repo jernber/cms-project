@@ -12,7 +12,7 @@
         $username = $user['Username'];
     }
 
-    $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID, DateCreated FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY BuildID DESC";
+    $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID, DATE_FORMAT(DateCreated, '%b %d %Y') as DateCreated FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY BuildID DESC";
     $statement = $db->prepare($query);
     $statement->execute();
     $builds = $statement->fetchAll();

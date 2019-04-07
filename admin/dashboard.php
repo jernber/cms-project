@@ -19,6 +19,27 @@
         echo '<p>Oops! A mistake has happened</p>';
     }
 
+    if(isset($_POST['submit'])){
+        $UserID = filter_input(INPUT_POST, 'UserID', FILTER_SANITIZE_NUMBER_INT);
+        $Username = filter_input(INPUT_POST, 'Username', FILTER_SANITIZE_STRING);
+        $Email = filter_input(INPUT_POST, 'Email', FILTER_SANITIZE_EMAIL);
+        $Member = filter_input(INPUT_POST, 'Member', FILTER_SANITIZE_NUMBER_INT);
+
+        $query = "UPDATE cms_users SET Email=:Email, Username=:Username, Member = :Member WHERE UserID = ($UserID)";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":Email", $Email);
+        $statement->bindValue(":Username", $Username);
+        $statement->bindValue(":Member", $Member);
+        $statement->execute();
+        header('Location: dashboard.php');
+    }
+    if(isset($_POST['delete'])){
+        $UserID = filter_input(INPUT_POST, 'UserID', FILTER_SANITIZE_NUMBER_INT);
+        $query = "DELETE FROM cms_users WHERE UserID = ($UserID)";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        header('Location: dashboard.php');
+    }
 
 ?>
 <!DOCTYPE html>
@@ -50,28 +71,29 @@
                 </div>
                 
                 <div class="modal-body">
-                <form action="updateUser.php" method="POST" id="edit_form">
-                    <label for="UserID">UserID</label>
-                    <input type="text" name="UserID" id="modalUserID" class="form-control" readonly>
-                    
-                    <label for="Username">Username</label>
-                    <input type="text" name="Username" id="modalUsername"  class="form-control">
+                    <form action="" method="POST" id="edit_form">
+                        <label for="UserID">UserID</label>
+                        <input type="text" name="UserID" id="modalUserID" class="form-control" readonly>
+                        
+                        <label for="Username">Username</label>
+                        <input type="text" name="Username" id="modalUsername"  class="form-control">
 
-                    <label for="Email">Email</label>
-                    <input type="email" name="Email" id="modalEmail"  class="form-control">
+                        <label for="Email">Email</label>
+                        <input type="email" name="Email" id="modalEmail"  class="form-control">
 
-                    <label for="Member">Member Type</label>
-                    <select name="Member" id="modalMember" class="form-control">
-                        <option value="1">Admin</option>
-                        <option value="2">Approved</option>
-                        <option value="3">Member</option>
-                    </select>
-                    <button type="submit" id='modalSubmit' class="btn btn-primary" data-dismiss="modal">Update User</button>
-                </form>
+                        <label for="Member">Member Type</label>
+                        <select name="Member" id="modalMember" class="form-control">
+                            <option value="1">Admin</option>
+                            <option value="2">Approved</option>
+                            <option value="3">Member</option>
+                        </select>
+                        
+                    </form>
                 </div>
 
                 <div class="modal-footer">
-                <button form="" type="submit" id='modalSubmit' class="btn btn-primary" data-dismiss="modal">Update User</button>
+                    <button form="edit_form" type="submit" id='modalDelete' class="btn btn-secondary" name="delete">Delete User</button>
+                    <button form="edit_form" type="submit" id='modalSubmit' class="btn btn-primary" name="submit">Update User</button>
                 </div>
             </div>
         </div>
