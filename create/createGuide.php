@@ -10,6 +10,7 @@
     
     array_unshift($heroes, ["HeroID" => -1, "HeroName" => "Select a hero..."]);
 
+      
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +54,7 @@
 
         <div class="row">
             <div class="col">
-                <form action="processPost.php" method="POST" >
+                <form action="processPost.php" method="POST" enctype='multipart/form-data'>
                     <label for="title">Guide Name</label>
                         <input type="text" name="title" id="title" class="form-control">
                     <label for="heroes">Hero</label>
@@ -71,6 +72,10 @@
                     </div>
                     <label for="details"><br>Details</label>
                     <textarea name="details" id="details" cols="10" rows="10"></textarea>
+
+                    <label for='image'>Image Filename:</label>
+                    <input type='file' name='image' id='image'>
+
                     <button type="submit">Submit</button>
                 </form>
             </div>

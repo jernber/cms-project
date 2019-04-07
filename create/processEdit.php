@@ -29,7 +29,7 @@
         $statement = $db->prepare($query);
         $statement->bindValue(':BuildID', $BuildID, PDO::PARAM_INT);
         $statement->execute();
-        header('location: ..\ViewGuides\view.php');
+        header('location: ..\index.php');
     }
 ?>
 <!DOCTYPE html>

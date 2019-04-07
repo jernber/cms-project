@@ -44,8 +44,9 @@
                 <?php if(!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item"><a class="nav-link" href="register\register.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="login\login.php">Login</a></li>
-                <?php elseif($_SESSION['Member'] == 1): ?>
+                <?php if($_SESSION['Member'] == 1): ?>
                     <li class="nav-item"><a class="nav-link" href="admin\dashboard.php">Admin Dashboard</a></li>
+                <?php endif ?>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="create\CreateGuide.php">Create</a></li>
                     <li class="nav-item"><a class="nav-link" href="login\logout.php">Logout</a></li>
