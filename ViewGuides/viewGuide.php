@@ -4,7 +4,7 @@
     require_once(SITE_ROOT . '\composer\vendor\autoload.php');
     session_start();
     $BuildID = filter_input(INPUT_GET, 'BuildID', FILTER_SANITIZE_NUMBER_INT);
-    $query =  "SELECT BuildID, HeroName, Title, Description, Username, Content FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID WHERE BuildID = ($BuildID)";
+    $query =  "SELECT BuildID, HeroName, Title, Description, Username, Content, BuildImage FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID WHERE BuildID = ($BuildID)";
     $statement = $db->prepare($query);
     $statement->execute();
     $data =  $statement->fetch();
@@ -60,6 +60,9 @@
                 <h2>A build for <?= $data['HeroName']?></h2>
                 <h2><?= $data['Description'] ?></h2>
                 <h3>Created by <?= $data['Username'] ?></h3>
+                <?php if(isset($data['BuildImage'])): ?>
+                    <img src="..\create\uploads\<?= $data['BuildImage'] ?>" alt="<?= $data['HeroName']?> image">
+                <?php endif ?>
                 <p><?= $contentDecode ?></p>
 
                 <?php if(isset($_SESSION['user_id'])): ?>

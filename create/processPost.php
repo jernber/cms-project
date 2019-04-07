@@ -60,7 +60,11 @@
                 $ext = pathinfo($image_filename, PATHINFO_EXTENSION);
             }
         }
-            if (isset($new_image_path)){
+        
+        if(isset($upload_error_detected)){
+
+        } else {
+            if (isset($image_upload_detected)){
                 $query = "INSERT INTO cms_userbuilds (HeroID, UserID, Title, Description, Content, BuildImage) VALUES (:HeroID, :UserID, :Title, :Description, :Content, :BuildImage)";         
                 $statement = $db->prepare($query);
     
@@ -69,7 +73,7 @@
                 $statement->bindValue(":Title", $Title);
                 $statement->bindValue(":Description", $Description);
                 $statement->bindValue(":Content", $Content);
-                $statement->bindValue(":BuildImage", $new_image_path);
+                $statement->bindValue(":BuildImage", $image_filename);
                 $statement->execute();
                 header('location:..\index.php');
             }
@@ -85,5 +89,19 @@
                 header('location:..\index.php');
             }
         }
+
+        }
     }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Error processing image</title>
+</head>
+<body>
+    <p>Error when processing build! Error Number: <?= $_FILES['image']['error'] ?></p>
+</body>
+</html>

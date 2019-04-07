@@ -7,7 +7,7 @@ A content management website to help new players start playing
 + 5 composer - TinyMCE + BootStrap
 + 2 7.1 Admin Page CUD
 + 5 7.2 Delete users
-
++ 5 6.1 add image
 ## Timeline...So far
 
 1. Build the backend
