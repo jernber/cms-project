@@ -47,48 +47,55 @@
             }
             return $file_extension_is_valid && $mime_type_is_valid;
         }
-        
+        $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
         $image_upload_detected = isset($_FILES['image']) && ($_FILES['image']['error'] === 0);
         $upload_error_detected = isset($_FILES['image']) && ($_FILES['image']['error'] > 0);
-    
+        
+
         if ($image_upload_detected) { 
             $image_filename        = $_FILES['image']['name'];
             $temporary_image_path  = $_FILES['image']['tmp_name'];
             $new_image_path        = file_upload_path($image_filename);
+            $checker = substr($new_image_path, -3);
             if (file_is_an_image($temporary_image_path, $new_image_path)) {
                 move_uploaded_file($temporary_image_path, $new_image_path);
                 $ext = pathinfo($image_filename, PATHINFO_EXTENSION);
             }
         }
         
-        if(isset($upload_error_detected)){
 
-        } else {
-            if (isset($image_upload_detected)){
-                $query = "INSERT INTO cms_userbuilds (HeroID, UserID, Title, Description, Content, BuildImage) VALUES (:HeroID, :UserID, :Title, :Description, :Content, :BuildImage)";         
-                $statement = $db->prepare($query);
-    
-                $statement->bindValue(":HeroID", $HeroID);
-                $statement->bindValue(":UserID", $UserID);
-                $statement->bindValue(":Title", $Title);
-                $statement->bindValue(":Description", $Description);
-                $statement->bindValue(":Content", $Content);
-                $statement->bindValue(":BuildImage", $image_filename);
-                $statement->execute();
-                header('location:..\index.php');
-            }
-            if (!isset($new_image_path)){
-                $query = "INSERT INTO cms_userbuilds (HeroID, UserID, Title, Description, Content) VALUES (:HeroID, :UserID, :Title, :Description, :Content)";         
-                $statement = $db->prepare($query);
-                $statement->bindValue(":HeroID", $HeroID);
-                $statement->bindValue(":UserID", $UserID);
-                $statement->bindValue(":Title", $Title);
-                $statement->bindValue(":Description", $Description);
-                $statement->bindValue(":Content", $Content);
-                $statement->execute();
-                header('location:..\index.php');
-            }
+        if (!isset($checker)){
+            $query = "INSERT INTO cms_userbuilds (HeroID, UserID, Title, Description, Content) VALUES (:HeroID, :UserID, :Title, :Description, :Content)";         
+            $statement = $db->prepare($query);
+            $statement->bindValue(":HeroID", $HeroID);
+            $statement->bindValue(":UserID", $UserID);
+            $statement->bindValue(":Title", $Title);
+            $statement->bindValue(":Description", $Description);
+            $statement->bindValue(":Content", $Content);
+            $statement->execute();
+            header('location:..\index.php');
         }
+        if($upload_error_detected == false) {
+            if(in_array($checker, $allowed_file_extensions)){
+                if ($upload_error_detected == false){
+                    $query = "INSERT INTO cms_userbuilds (HeroID, UserID, Title, Description, Content, BuildImage) VALUES (:HeroID, :UserID, :Title, :Description, :Content, :BuildImage)";         
+                    $statement = $db->prepare($query);
+        
+                    $statement->bindValue(":HeroID", $HeroID);
+                    $statement->bindValue(":UserID", $UserID);
+                    $statement->bindValue(":Title", $Title);
+                    $statement->bindValue(":Description", $Description);
+                    $statement->bindValue(":Content", $Content);
+                    $statement->bindValue(":BuildImage", $image_filename);
+                    $statement->execute();
+                    header('location:..\index.php');
+            } 
+            }
+        } 
+            
+
+        
+
 
         }
     }

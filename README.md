@@ -8,6 +8,11 @@ A content management website to help new players start playing
 + 2 7.1 Admin Page CUD
 + 5 7.2 Delete users
 + 5 6.1 add image
++ 2 6.4
+
+-- Milstone 4
+77 Currently
+ 
 ## Timeline...So far
 
 1. Build the backend
