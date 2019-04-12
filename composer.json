@@ -1,0 +1,5 @@
+{
+    "require": {
+        "shadesoft/gd-image": "^1.1"
+    }
+}

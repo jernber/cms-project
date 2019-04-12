@@ -17,7 +17,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Create Guide</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -30,6 +30,7 @@
         selector: "textarea",
         forced_root_block : "",
     });
+
 </script>
 </head>
 <body>
@@ -69,13 +70,21 @@
                         <label for="description">Description</label>
                         <input type="text" name="description" id="description" class="form-control">
                         <small>Provide a quick description of your guide 280 characters max!</small>
-                    </div>
+                    </div>               
+
                     <label for="details"><br>Details</label>
                     <textarea name="details" id="details" cols="10" rows="10"></textarea>
 
                     <label for='image'>Image Filename:</label>
                     <input type='file' name='image' id='image'>
-
+                    
+                    <div>
+                        <label for="captcha">Please Enter the Captcha Text</label>
+                        <img src="captcha.php" alt="CAPTCHA" class="captcha-image">
+                        <br>
+                        <input type="text" id="captcha" name="captcha_challenge" pattern="[A-Z]{6}">
+                    </div>
+                    
                     <button type="submit">Submit</button>
                 </form>
             </div>
