@@ -13,6 +13,7 @@
         if(strlen($Title) < 0 OR (strlen($Description) < 0 OR strlen($Description > 280)) OR strlen($Content) < 0){
             echo "<p>error processing post!</p>";
         } else {
+            
             $query = "UPDATE cms_userbuilds SET Title = :Title, Content = :Content, Description = :Description WHERE BuildID = :BuildID";
             $statement = $db->prepare($query);
             $statement->bindValue(":Title", $Title);
@@ -20,7 +21,7 @@
             $statement->bindValue(":BuildID", $BuildID, PDO::PARAM_INT);
             $statement->bindValue(":Description", $Description);
             $statement->execute();
-            header('location: ..\ViewGuides\view.php');
+            header('location: ..\index.php');
         }
     } 
     if (isset($_POST['delete'])){

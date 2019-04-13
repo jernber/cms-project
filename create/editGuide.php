@@ -31,16 +31,40 @@
 </script>
 </head>
 <body>
-    <form action="processEdit.php?BuildID=<?= $BuildID ?>" method="POST">
-    <label for="title">Guide Name</label>
-    <input type="text" name="title" id="title" value="<?= $build['Title'] ?>">
-    <label for="description"><br>Description</label>
-    <p>Provide a quick description of your guide 280 characters max!</p>
-    <input type="text" name="description" id="description" value="<?= $build['Description']?>">
-    <label for="details"><br>Details</label>
-    <textarea name="details" id="details" cols="10" rows="10"><?= $build['Content']?></textarea>
-    <button type="submit" name="submit" value='submit'>Submit</button>
-    <button type="submit" name="delete" value='delete'>Delete</button>
-</form>
+    <div class="container">
+
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">   
+                <a href="#" class="navbar-brand">Boda Buff</a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ml_auto">   
+                        <li class="nav-item"><a class="nav-link" href="..\index.php">View Guides</a></li>
+                    <?php if(!isset($_SESSION['user_id'])): ?>
+                        <li class="nav-item"><a class="nav-link" href="..\register\register.php">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="..\login\login.php">Login</a></li>
+                    <?php else: ?>
+                        <li class="nav-item"><a class="nav-link" href="..\create\CreateGuide.php">Create</a></li>
+                        <li class="nav-item"><a class="nav-link" href="..\login\logout.php">Logout</a></li>
+                    <?php endif ?>
+                </ul>
+                </div>
+            </nav>
+
+            <form action="processEdit.php?BuildID=<?= $BuildID ?>" method="POST">
+                <label for="title">Guide Name</label>
+                <input type="text" name="title" id="title" value="<?= $build['Title'] ?>">
+                
+                <label for="description"><br>Description</label>
+                <p>Provide a quick description of your guide 280 characters max!</p>
+                
+                <input type="text" name="description" id="description" value="<?= $build['Description']?>">
+                <label for="details"><br>Details</label>
+                
+                <textarea name="details" id="details" cols="10" rows="10"><?= $build['Content']?></textarea>
+                <button type="submit" name="submit" value='submit'>Submit</button>
+                <button type="submit" name="delete" value='delete'>Delete</button>
+            </form>
+    </div>
+
 </body>
 </html>

@@ -10,7 +10,6 @@
   $Member = filter_input(INPUT_POST, 'Member', FILTER_SANITIZE_NUMBER_INT);
   
   if ($_SESSION['Member'] == 1){
-    if()
       if ((strlen($Username) < 0) OR (strlen($Email) < 0)){
         echo "<p>Error on updating user </p>";
       } else {

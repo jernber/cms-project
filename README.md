@@ -14,10 +14,8 @@ A content management website to help new players start playing
 77 Currently
 +5 JQuery
 +5 Captcha
-- +5 Remove
-- +5 API  
-- +5 GIT
-- all of 4
++5 GIT 
++3 all of 4
 - +5 sort
  
 ## Timeline...So far

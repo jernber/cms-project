@@ -2,6 +2,7 @@
     include('config.php');
     require(SITE_ROOT . '\requires\connect.php');
     session_start();
+
     if(isset($_SESSION['user_id'])){
         $sql = "SELECT id, username FROM cms_users WHERE id = :id";
         $stmt = $db->prepare($sql);
@@ -12,11 +13,29 @@
         $username = $user['Username'];
     }
 
-    $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID, DATE_FORMAT(DateCreated, '%b %d %Y') as DateCreated FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY BuildID DESC";
-    $statement = $db->prepare($query);
-    $statement->execute();
-    $builds = $statement->fetchAll();
-    
+    if (!empty(($_GET))){
+        if (isset($_GET['Hero']) == true){
+            $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID, DATE_FORMAT(DateCreated, '%b %d %Y') as DateCreated FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY HeroName ASC";
+            $statement = $db->prepare($query);
+            $statement->execute();
+            $builds = $statement->fetchAll();
+        } else if (isset($_GET['Date']) == true){
+            $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID, DATE_FORMAT(DateCreated, '%b %d %Y') as DateCreated FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY DateCreated ASC";
+            $statement = $db->prepare($query);
+            $statement->execute();
+            $builds = $statement->fetchAll();
+        } else if (isset($_GET['Title']) == true){
+            $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID, DATE_FORMAT(DateCreated, '%b %d %Y') as DateCreated FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY Title ASC";
+            $statement = $db->prepare($query);
+            $statement->execute();
+            $builds = $statement->fetchAll();
+        }
+    } else  {
+        $query =  "SELECT SmallHeroImage, BuildID, HeroName, Title, Description, Username, h.HeroID, DATE_FORMAT(DateCreated, '%b %d %Y') as DateCreated FROM cms_userbuilds b JOIN cms_heroes h ON h.HeroID = b.HeroID JOIN cms_users u ON u.UserID = b.UserID  ORDER BY BuildID DESC";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $builds = $statement->fetchAll();
+    }    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +49,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="alertShow.js"></script>
     <script src="main.js"></script>
+    
 </head>
 <body>
     <div class="container">
@@ -44,9 +65,9 @@
                 <?php if(!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item"><a class="nav-link" href="register\register.php">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="login\login.php">Login</a></li>
-                <?php if(($_SESSION['Member'] == 1)): ?>
-                    <li class="nav-item"><a class="nav-link" href="admin\dashboard.php">Admin Dashboard</a></li>
-                <?php endif ?>
+                    <?php if(($_SESSION['Member'] == 1)): ?>
+                        <li class="nav-item"><a class="nav-link" href="admin\dashboard.php">Admin Dashboard</a></li>
+                    <?php endif ?>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="create\CreateGuide.php">Create</a></li>
                     <li class="nav-item"><a class="nav-link" href="login\logout.php">Logout</a></li>
@@ -55,39 +76,51 @@
             </div>
         </nav>
 
-        <!-- <div class="row">
+        <div class="row">
             <div class="col">
-                <div class="alert alert-success alert-dismissable fade show" role="alert">
-                    <?php if(isset($_SESSION['userCreate'])): ?>
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-                         <h2>Account created successfully! Thanks <?= $_SESSION['userCreate']?>!</h2> 
-                        <?php session_destroy(); ?>
-                    <?php endif ?>
+                <div class="alert hide alert-info alert-dismissable" role="alert" id="sortAlert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                    <p>Updated table by sort!</p>
                 </div>
             </div>
-        </div> -->
-  
+        </div>
+
         <?php if(isset($_SESSION['user_id']) || isset($_SESSION['logged_in'])): ?> 
             <h2>Hello, <?= $_SESSION['Username'] ?> !</h2>
         <?php endif ?> 
 
-            <table class="table">
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Hero</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">User</th>
-                </tr>
+            <table class="table" id="buildTable">
+                <thead>
+                <?php if(isset($_SESSION['logged_in'])): ?>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"><a href="index.php?Hero=true" class="sorter">Hero</a></th>
+                        <th scope="col"><a href="index.php?Title=true" class="sorter">Title</a></th>
+                        <th scope="col"><a href="index.php?Date=true" class="sorter">Date</a></th>
+                        <th scope="col">User</th>
+                    </tr>
+                    <?php else: ?>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Hero</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">User</th>
+                    </tr>
+                    <?php endif ?>
+                </thead> 
+                  
+                <tbody>
                 <?php foreach($builds as $build): ?>
-                <tr>
-                    <td><img src="<?= $build['SmallHeroImage'] ?>" alt="<?= $build['HeroName'] ?>"></td>
-                    <td><a href="heroes\hero.php?HeroID=<?= $build['HeroID'] ?>"><?= $build['HeroName'] ?></a></td>
-                    <td><a href="viewGuides/viewGuide.php?BuildID=<?= $build['BuildID'] ?>"><?= $build['Title'] ?></a></td>
-                    <td><?= $build['DateCreated'] ?></td>
-                    <td><?= $build['Username'] ?> </td>
-                </tr>
+                    <tr>
+                        <td><img src="<?= $build['SmallHeroImage'] ?>" alt="<?= $build['HeroName'] ?>"></td>
+                        <td><a href="heroes\hero.php?HeroID=<?= $build['HeroID'] ?>"><?= $build['HeroName'] ?></a></td>
+                        <td><a href="viewGuides/viewGuide.php?BuildID=<?= $build['BuildID'] ?>"><?= $build['Title'] ?></a></td>
+                        <td><?= $build['DateCreated'] ?></td>
+                        <td><?= $build['Username'] ?> </td>
+                    </tr>
                 <?php endforeach ?>
+                </tbody>
         </table>    
     </div>
 </body>
